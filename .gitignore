@@ -1,0 +1,9 @@
+*.iml
+/build/
+/dist/
+/node_modules/
+
+# IDE
+.idea/
+.vscode/
+
