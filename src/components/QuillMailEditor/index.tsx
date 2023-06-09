@@ -56,10 +56,15 @@ const QuillMailEditor = () => {
         if (!content.length) return;
         const html = '<meta charset="utf-8"><div>' + content + '</div>';
 
-        const aTag = document.createElement('a');
+        // set on clipboard
+        navigator.clipboard.writeText(html).then(function() {
+            alert('HTML copied to clipboard!');
+        });
+
+        /*const aTag = document.createElement('a');
         aTag.href = URL.createObjectURL(new Blob([html], { type: 'text/html' }));
         aTag.target = '_blank';
-        aTag.click();
+        aTag.click();*/
     };
 
     const onImport = (value: any) => {
@@ -79,7 +84,7 @@ const QuillMailEditor = () => {
                         marginTop: 10,
                         marginBottom: 10,
                         padding: 10,
-                        width: 100,
+                        width: 150,
                         borderRadius: 10,
                         textAlign: 'center',
                         fontWeight: 'bolder',
@@ -89,7 +94,7 @@ const QuillMailEditor = () => {
                     }}
                     onClick={getInHtml}
                 >
-                    Get HTML
+                    Copy to clipboard
                 </div>
                 <div
                     style={{
