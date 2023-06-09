@@ -1,11 +1,14 @@
 import React, { useRef, useState } from 'react';
+import classes from './QuillMailEditor.module.scss';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import Flex from '../Flex';
+import ImportHtmlDialog from "../ImportHtmlDialog";
 
 const QuillMailEditor = () => {
     const quillRef = useRef<ReactQuill>(null);
     const [content, setContent] = useState('');
+    const [show, setShow] = useState<boolean>(false);
 
     const insertVariable = () => {
         const variable = prompt('Mi az azonosító neve?');
@@ -59,24 +62,52 @@ const QuillMailEditor = () => {
         aTag.click();
     };
 
+    const onImport = (value: any) => {
+        setContent(value);
+        onClose();
+    }
+
+    const onClose = () => {
+        setShow(false);
+    }
+
     return (
         <Flex flex-direction={'column'} flex-basic={'100%'} height={'1000px'}>
-            <div
-                style={{
-                    marginTop: 10,
-                    marginBottom: 10,
-                    padding: 10,
-                    width: 100,
-                    borderRadius: 10,
-                    textAlign: 'center',
-                    fontWeight: 'bolder',
-                    color: 'green',
-                    background: 'lightgreen',
-                    cursor: 'pointer',
-                }}
-                onClick={getInHtml}
-            >
-                Get HTML
+            <div className={classes.actions}>
+                <div
+                    style={{
+                        marginTop: 10,
+                        marginBottom: 10,
+                        padding: 10,
+                        width: 100,
+                        borderRadius: 10,
+                        textAlign: 'center',
+                        fontWeight: 'bolder',
+                        color: 'green',
+                        background: 'lightgreen',
+                        cursor: 'pointer',
+                    }}
+                    onClick={getInHtml}
+                >
+                    Get HTML
+                </div>
+                <div
+                    style={{
+                        marginTop: 10,
+                        marginBottom: 10,
+                        padding: 10,
+                        width: 120,
+                        borderRadius: 10,
+                        textAlign: 'center',
+                        fontWeight: 'bolder',
+                        color: 'blue',
+                        background: 'lightblue',
+                        cursor: 'pointer',
+                    }}
+                    onClick={setShow.bind(null, true)}
+                >
+                    Import HTML
+                </div>
             </div>
             <ReactQuill
                 ref={quillRef}
@@ -85,6 +116,10 @@ const QuillMailEditor = () => {
                 modules={modules}
                 formats={formats}
                 style={{ borderTop: '1px dotted #ccc', width: '100%', height: '50%' }}
+            />
+            <ImportHtmlDialog show={show}
+                              onImport={onImport}
+                              onClose={onClose}
             />
         </Flex>
     );

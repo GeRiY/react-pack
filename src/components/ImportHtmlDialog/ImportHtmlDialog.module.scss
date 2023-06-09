@@ -1,0 +1,20 @@
+.title {
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+}
+
+.content {
+    margin-bottom: 1rem;
+}
+
+.actions {
+    display: flex;
+    justify-content: space-around;
+}
+
+.dialog {
+    padding: 16px;
+    width: 100%;
+    max-width: 600px;
+}
